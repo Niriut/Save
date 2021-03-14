@@ -1,0 +1,58 @@
+int sensor1 = A0;
+ int sensor2 = A1;
+ int sensor3 = A2;
+ int sensor4 = A3;
+
+#include <SoftwareSerial.h>
+SoftwareSerial UnoSerial(3, 2); // RX | TX
+void setup()
+{
+  pinMode(3, INPUT);
+  pinMode(2, OUTPUT);
+  pinMode(sensor1, INPUT);
+  pinMode(sensor2, INPUT);
+  pinMode(sensor3, INPUT);
+  pinMode(sensor4, INPUT);
+  Serial.begin(9600);
+  UnoSerial.begin(57600);
+}
+void loop() {
+  
+     Serial.println("แบตเตอรี่ตัวที่ 1");
+     Serial.print("แรงดันไฟ ");
+     Serial.print(" : ");
+     int val1 = mapf(analogRead(A0), 0, 1024, 0, 24); 
+     Serial.println(val1);
+     UnoSerial.print(A0);
+     
+  
+ 
+     Serial.println("แบตเตอรี่ตัวที่ 2");
+     Serial.print("แรงดันไฟ ");
+     Serial.print(" : ");
+     int val2 = mapf(analogRead(A1), 0, 1024, 0, 24);
+     Serial.println(val2);
+     UnoSerial.print(A1);
+      
+    
+    Serial.println("แบตเตอรี่ตัวที่ 3");
+    Serial.print("แรงดันไฟ ");
+    Serial.print(" : ");
+    int val3 = mapf(analogRead(A3), 0, 1024, 0, 24);
+    Serial.println(val3);
+    UnoSerial.print(A2);
+       
+
+    Serial.println("แบตเตอรี่ตัวที่ 4");
+    Serial.print("แรงดันไฟ ");
+    Serial.print(" : ");
+    int val4 = mapf(analogRead(A4), 0, 1024, 0, 24);
+    Serial.println(val4);
+    UnoSerial.print(A3);
+   
+
+    delay(6000);
+}
+int mapf(int val, int in_min, double in_max, int out_min, int out_max) {
+  return (val - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+}
